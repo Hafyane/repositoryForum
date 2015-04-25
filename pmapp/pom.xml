@@ -15,22 +15,22 @@
 		<logback.version>1.1.2</logback.version>
 	</properties>
 	<dependencies>
-<!-- 				        JSTL		 -->
+		<!-- JSTL -->
 
-<dependency>
-  <groupId>jstl</groupId>
-  <artifactId>jstl</artifactId>
-  <version>1.2</version>
-  <scope>compile</scope>
-</dependency>
-<dependency>
-  <groupId>taglibs</groupId>
-  <artifactId>standard</artifactId>
-  <version>1.1.2</version>
-  <scope>compile</scope>
-</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<scope>compile</scope>
+		</dependency>
 
-<!-- 						SPRING -->
+		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
