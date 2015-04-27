@@ -83,13 +83,15 @@
 		</div>
 	</div>
 	<div class="table-responsive">
+		<input type="text" class="form-control" placeholder="Search"
+			ng-model="filter.name">
+		<p >
+			<strong class="colortext">Page:</strong> {{tableParams.page()}}
 		<p>
-			<strong>Page:</strong> {{tableParams.page()}}
-		<p>
-			<strong>Count per page:</strong> {{tableParams.count()}}
+			<strong class="colortext">Count per page:</strong> {{tableParams.count()}}
 			<!-- 	table-striped -->
-		<table ng-table="tableParams" template-pagination="custom/pager"
-			class="table">
+		<table ng-table="tableParams" show-filter="true"
+			template-pagination="custom/pager" class="table">
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -99,10 +101,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="villeclt in villeclts">
-					<td data-title="'Id'"><a ui-sref="villecltDetail({id:villeclt.idVille})">{{villeclt.idVille}}</a></td>
-					<td data-title="'Nom'">{{villeclt.nom}}</td>
-					<td data-title="'Desc'">{{villeclt.description}}</td>
+				<tr ng-repeat="villeclt in $data">
+					<td  sortable="'id'"><a
+						ui-sref="villecltDetail({id:villeclt.idVille})">{{villeclt.idVille}}</a></td>
+					<td  sortable="'nom'" filter="{ 'nom': 'text' }">{{villeclt.nom}}</td>
+					<td >{{villeclt.description}}</td>
 					<td>
 						<button type="submit"
 							ui-sref="villecltDetail({id:villeclt.idVille})"
@@ -124,6 +127,8 @@
 				</tr>
 			</tbody>
 		</table>
+
 	</div>
+
 
 </div>

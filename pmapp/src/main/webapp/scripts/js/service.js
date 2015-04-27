@@ -12,7 +12,6 @@ appServ.factory('Villeclt', function($resource) {
 			method : 'GET',
 			transformResponse : function(data) {
 				data = angular.fromJson(data);
-				console.log("ccccccccccccccccccccccccccc");
 				return data;
 			}
 		},

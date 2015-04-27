@@ -1,17 +1,14 @@
 'use strict';
-// $scope.Allvilleclts = villeclts.query();
 var appCtr=angular.module('pmapp');
-appCtr.controller('VillecltController', function ($scope, Villeclt,ngTableParams) {
+appCtr.controller('VillecltController', function ($scope, Villeclt,$filter,ngTableParams) {
         $scope.villeclts = [];
-        $scope.orderedData = [];
         $scope.loadAll = function() {
         	
             Villeclt.query({}, function(result, headers) {
                 for (var i = 0; i < result.length; i++) {
                     $scope.villeclts.push(result[i]);
-                    $scope.orderedData.push(result[i]);
                 }
-                
+                $scope.tableParams.reload();
             });
         };
         $scope.reset = function() {
@@ -61,18 +58,35 @@ appCtr.controller('VillecltController', function ($scope, Villeclt,ngTableParams
             $scope.editForm.$setUntouched();
         };
         
-      
+        $scope.filter = {name: ''};
         
         $scope.tableParams = new ngTableParams({
         	
             page: 1,            // show first page
-            count: 10           // count per page
+            count: 10      ,          // count per page
+            sorting: {
+                name: 'asc'     // initial sorting
+            }  ,   // count per page
+            filter: {
+                name: $scope.filter.name    // initial filter
+            }
         }, {
         	     	
-            total: $scope.orderedData.length, // length of data
+            total: $scope.villeclts.length, // length of data
             getData: function($defer, params) {
-                $defer.resolve($scope.orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                
+            	var orderedDataS = params.sorting() ? $filter('orderBy')($scope.villeclts, params.orderBy()) :
+            		$scope.villeclts;
+            	
+            	var orderedDataF = params.filter() ?
+                        $filter('filter')($scope.villeclts, params.filter().nom) :
+                        	$scope.villeclts;
+
+            	
+                        $scope.villecltfilter=$defer.resolve(orderedDataF.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                        params.total(orderedDataF.length); // set total for recalc pagination
+                        $defer.resolve($scope.villecltfilter);    
+            
+            
             }
         });
        
