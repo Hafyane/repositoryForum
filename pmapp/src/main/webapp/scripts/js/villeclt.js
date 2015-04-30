@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('pmapp', ['ui.router', 'ngResource','ngTable']);
+var app = angular.module('pmapp', ['ui.router', 'ngResource','ngTable','ngMessages']);
 app.config(function($stateProvider,$urlRouterProvider) {
 	$stateProvider.state('villeclt', {
 		url : '/',

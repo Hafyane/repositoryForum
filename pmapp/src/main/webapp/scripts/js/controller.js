@@ -58,35 +58,40 @@ appCtr.controller('VillecltController', function ($scope, Villeclt,$filter,ngTab
             $scope.editForm.$setUntouched();
         };
         
-        $scope.filter = {name: ''};
+        $scope.doSearch = function () {
+            $scope.tableParams.reload();
+            
+            
+        }
+        
         
         $scope.tableParams = new ngTableParams({
         	
             page: 1,            // show first page
             count: 10      ,          // count per page
+//            filter: {
+//                name: 'a'       // initial filter
+//            }
+//            ,
             sorting: {
                 name: 'asc'     // initial sorting
-            }  ,   // count per page
-            filter: {
-                name: $scope.filter.name    // initial filter
-            }
+            }  
         }, {
         	     	
             total: $scope.villeclts.length, // length of data
             getData: function($defer, params) {
-            	var orderedDataS = params.sorting() ? $filter('orderBy')($scope.villeclts, params.orderBy()) :
-            		$scope.villeclts;
-            	
+//            	var orderedDataS = params.sorting() ? $filter('orderBy')($scope.villeclts, params.orderBy()) :
+//            		$scope.villeclts;
+            	 
             	var orderedDataF = params.filter() ?
-                        $filter('filter')($scope.villeclts, params.filter().nom) :
-                        	$scope.villeclts;
-
-            	
-                        $scope.villecltfilter=$defer.resolve(orderedDataF.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                        params.total(orderedDataF.length); // set total for recalc pagination
-                        $defer.resolve($scope.villecltfilter);    
+                        $filter('filter')($scope.villeclts,params.filter()):$scope.villeclts;
+                        
+                        console.log('hi log: ',orderedDataF.length);
+                        params.total(orderedDataF.length);
+                        $defer.resolve(orderedDataF.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             
-            
+                       
+           
             }
         });
        

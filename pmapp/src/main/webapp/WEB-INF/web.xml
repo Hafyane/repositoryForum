@@ -24,7 +24,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<servlet-mapping>
+	<servlet-mapping >
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
@@ -44,4 +44,7 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.ttf</url-pattern>
 	</servlet-mapping>
+	
+	 
+  
 </web-app>
